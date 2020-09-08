@@ -27,7 +27,7 @@ impl UserSpaceVMManager {
             assert!(sgx_tprotect_rsrv_mem(ptr, size, perm.bits()) == sgx_status_t::SGX_SUCCESS);
 
             let addr = ptr as usize;
-            debug!("allocated rsrv addr is 0x{:x}, len is 0x{:x}", addr, size);
+            println!("allocated rsrv addr is 0x{:x}, len is 0x{:x}", addr, size);
             VMRange::from_unchecked(addr, addr + size)
         };
 

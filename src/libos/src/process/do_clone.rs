@@ -14,7 +14,7 @@ pub fn do_clone(
     ctid: Option<NonNull<pid_t>>,
     new_tls: Option<usize>,
 ) -> Result<pid_t> {
-    debug!(
+    println!(
         "clone: flags: {:?}, stack_addr: {:?}, ptid: {:?}, ctid: {:?}, new_tls: {:?}",
         flags, user_rsp, ptid, ctid, new_tls
     );

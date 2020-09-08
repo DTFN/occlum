@@ -23,7 +23,7 @@ pub fn do_init<'a, 'b>(
         let child_mmap_size =
             rlimit.get(resource_t::RLIMIT_AS).get_cur() - child_heap_size - child_stack_size;
 
-        debug!(
+        println!(
             "new process: heap_size = {:?}, stack_size = {:?}, mmap_size = {:?}",
             child_heap_size, child_stack_size, child_mmap_size
         );

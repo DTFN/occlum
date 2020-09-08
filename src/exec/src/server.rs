@@ -210,7 +210,7 @@ impl OcclumExec for OcclumExecImpl {
                 *commands.get_mut(&process_id).expect("get process") = (Some(*exit_status), false);
 
                 //Notifies the client to application stopped
-                debug!(
+                println!(
                     "process:{} finished, send signal to {}",
                     process_id, client_process_id
                 );

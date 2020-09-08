@@ -1,7 +1,7 @@
 use crate::prelude::*;
 
 pub fn do_arch_prctl(code: ArchPrctlCode, addr: *mut usize) -> Result<()> {
-    debug!("do_arch_prctl: code: {:?}, addr: {:?}", code, addr);
+    println!("do_arch_prctl: code: {:?}, addr: {:?}", code, addr);
     match code {
         ArchPrctlCode::ARCH_SET_FS => {
             current!().task().set_user_fs(addr as usize);

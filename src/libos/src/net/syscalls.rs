@@ -9,7 +9,7 @@ use time::timeval_t;
 use util::mem_util::from_user;
 
 pub fn do_socket(domain: c_int, socket_type: c_int, protocol: c_int) -> Result<isize> {
-    debug!(
+    println!(
         "socket: domain: {}, socket_type: 0x{:x}, protocol: {}",
         domain, socket_type, protocol
     );
@@ -34,7 +34,7 @@ pub fn do_connect(
     addr: *const libc::sockaddr,
     addr_len: libc::socklen_t,
 ) -> Result<isize> {
-    debug!(
+    println!(
         "connect: fd: {}, addr: {:?}, addr_len: {}",
         fd, addr, addr_len
     );
@@ -80,7 +80,7 @@ pub fn do_accept4(
     addr_len: *mut libc::socklen_t,
     flags: c_int,
 ) -> Result<isize> {
-    debug!(
+    println!(
         "accept4: fd: {}, addr: {:?}, addr_len: {:?}, flags: {:#x}",
         fd, addr, addr_len, flags
     );
@@ -122,7 +122,7 @@ pub fn do_accept4(
 }
 
 pub fn do_shutdown(fd: c_int, how: c_int) -> Result<isize> {
-    debug!("shutdown: fd: {}, how: {}", fd, how);
+    println!("shutdown: fd: {}, how: {}", fd, how);
     let file_ref = current!().file(fd as FileDesc)?;
     if let Ok(socket) = file_ref.as_socket() {
         let ret = try_libc!(libc::ocall::shutdown(socket.fd(), how));
@@ -133,7 +133,7 @@ pub fn do_shutdown(fd: c_int, how: c_int) -> Result<isize> {
 }
 
 pub fn do_bind(fd: c_int, addr: *const libc::sockaddr, addr_len: libc::socklen_t) -> Result<isize> {
-    debug!("bind: fd: {}, addr: {:?}, addr_len: {}", fd, addr, addr_len);
+    println!("bind: fd: {}, addr: {:?}, addr_len: {}", fd, addr, addr_len);
     if addr.is_null() && addr_len == 0 {
         return_errno!(EINVAL, "no address is specified");
     }
@@ -158,7 +158,7 @@ pub fn do_bind(fd: c_int, addr: *const libc::sockaddr, addr_len: libc::socklen_t
 }
 
 pub fn do_listen(fd: c_int, backlog: c_int) -> Result<isize> {
-    debug!("listen: fd: {}, backlog: {}", fd, backlog);
+    println!("listen: fd: {}, backlog: {}", fd, backlog);
     let file_ref = current!().file(fd as FileDesc)?;
     if let Ok(socket) = file_ref.as_socket() {
         let ret = try_libc!(libc::ocall::listen(socket.fd(), backlog));
@@ -178,7 +178,7 @@ pub fn do_setsockopt(
     optval: *const c_void,
     optlen: libc::socklen_t,
 ) -> Result<isize> {
-    debug!(
+    println!(
         "setsockopt: fd: {}, level: {}, optname: {}, optval: {:?}, optlen: {:?}",
         fd, level, optname, optval, optlen
     );
@@ -207,7 +207,7 @@ pub fn do_getsockopt(
     optval: *mut c_void,
     optlen: *mut libc::socklen_t,
 ) -> Result<isize> {
-    debug!(
+    println!(
         "getsockopt: fd: {}, level: {}, optname: {}, optval: {:?}, optlen: {:?}",
         fd, level, optname, optval, optlen
     );
@@ -229,7 +229,7 @@ pub fn do_getpeername(
     addr: *mut libc::sockaddr,
     addr_len: *mut libc::socklen_t,
 ) -> Result<isize> {
-    debug!(
+    println!(
         "getpeername: fd: {}, addr: {:?}, addr_len: {:?}",
         fd, addr, addr_len
     );
@@ -253,7 +253,7 @@ pub fn do_getsockname(
     addr: *mut libc::sockaddr,
     addr_len: *mut libc::socklen_t,
 ) -> Result<isize> {
-    debug!(
+    println!(
         "getsockname: fd: {}, addr: {:?}, addr_len: {:?}",
         fd, addr, addr_len
     );
@@ -277,7 +277,7 @@ pub fn do_sendto(
     addr: *const libc::sockaddr,
     addr_len: libc::socklen_t,
 ) -> Result<isize> {
-    debug!(
+    println!(
         "sendto: fd: {}, base: {:?}, len: {}, flags: {} addr: {:?}, addr_len: {}",
         fd, base, len, flags, addr, addr_len
     );
@@ -319,7 +319,7 @@ pub fn do_recvfrom(
     addr: *mut libc::sockaddr,
     addr_len: *mut libc::socklen_t,
 ) -> Result<isize> {
-    debug!(
+    println!(
         "recvfrom: fd: {}, base: {:?}, len: {}, flags: {}, addr: {:?}, addr_len: {:?}",
         fd, base, len, flags, addr, addr_len
     );
@@ -343,7 +343,7 @@ pub fn do_socketpair(
     protocol: c_int,
     sv: *mut c_int,
 ) -> Result<isize> {
-    debug!(
+    println!(
         "socketpair: domain: {}, type:0x{:x}, protocol: {}",
         domain, socket_type, protocol
     );
@@ -360,7 +360,7 @@ pub fn do_socketpair(
         sock_pair[0] = files.put(Arc::new(Box::new(client_socket)), false);
         sock_pair[1] = files.put(Arc::new(Box::new(server_socket)), false);
 
-        debug!("socketpair: ({}, {})", sock_pair[0], sock_pair[1]);
+        println!("socketpair: ({}, {})", sock_pair[0], sock_pair[1]);
         Ok(0)
     } else if (domain == libc::AF_TIPC) {
         return_errno!(EAFNOSUPPORT, "cluster domain sockets not supported")
@@ -370,7 +370,7 @@ pub fn do_socketpair(
 }
 
 pub fn do_sendmsg(fd: c_int, msg_ptr: *const msghdr, flags_c: c_int) -> Result<isize> {
-    debug!(
+    println!(
         "sendmsg: fd: {}, msg: {:?}, flags: 0x{:x}",
         fd, msg_ptr, flags_c
     );
@@ -398,7 +398,7 @@ pub fn do_sendmsg(fd: c_int, msg_ptr: *const msghdr, flags_c: c_int) -> Result<i
 }
 
 pub fn do_recvmsg(fd: c_int, msg_mut_ptr: *mut msghdr_mut, flags_c: c_int) -> Result<isize> {
-    debug!(
+    println!(
         "recvmsg: fd: {}, msg: {:?}, flags: 0x{:x}",
         fd, msg_mut_ptr, flags_c
     );
@@ -561,7 +561,7 @@ pub fn do_poll(fds: *mut PollEvent, nfds: libc::nfds_t, timeout: c_int) -> Resul
     }
 
     let polls = unsafe { std::slice::from_raw_parts_mut(fds, nfds as usize) };
-    debug!("poll: {:?}, timeout: {}", polls, timeout);
+    println!("poll: {:?}, timeout: {}", polls, timeout);
 
     let mut time_val = timeval_t::new(
         ((timeout as u32) / 1000) as i64,
@@ -603,7 +603,7 @@ pub fn do_epoll_ctl(
     fd: c_int,
     event: *const libc::epoll_event,
 ) -> Result<isize> {
-    debug!("epoll_ctl: epfd: {}, op: {:?}, fd: {}", epfd, op, fd);
+    println!("epoll_ctl: epfd: {}, op: {:?}, fd: {}", epfd, op, fd);
     let inner_event = if !event.is_null() {
         from_user::check_ptr(event)?;
         Some(EpollEvent::from_raw(unsafe { &*event })?)
@@ -643,7 +643,7 @@ pub fn do_epoll_wait(
     let mut inner_events: Vec<EpollEvent> =
         vec![EpollEvent::new(EpollEventFlags::empty(), 0); max_events];
 
-    debug!(
+    println!(
         "epoll_wait: epfd: {}, len: {:?}, timeout: {}",
         epfd,
         raw_events.len(),

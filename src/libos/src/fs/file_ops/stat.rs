@@ -135,7 +135,7 @@ impl From<Metadata> for Stat {
 }
 
 fn do_stat(path: &str) -> Result<Stat> {
-    debug!("stat: path: {}", path);
+    println!("stat: path: {}", path);
     let inode = {
         let current = current!();
         let fs = current.fs().lock().unwrap();
@@ -146,14 +146,14 @@ fn do_stat(path: &str) -> Result<Stat> {
 }
 
 pub fn do_fstat(fd: u32) -> Result<Stat> {
-    debug!("fstat: fd: {}", fd);
+    println!("fstat: fd: {}", fd);
     let file_ref = current!().file(fd as FileDesc)?;
     let stat = Stat::from(file_ref.metadata()?);
     Ok(stat)
 }
 
 pub fn do_lstat(path: &str) -> Result<Stat> {
-    debug!("lstat: path: {}", path);
+    println!("lstat: path: {}", path);
     let inode = {
         let current = current!();
         let fs = current.fs().lock().unwrap();
@@ -164,7 +164,7 @@ pub fn do_lstat(path: &str) -> Result<Stat> {
 }
 
 pub fn do_fstatat(dirfd: DirFd, path: &str, flags: StatFlags) -> Result<Stat> {
-    debug!(
+    println!(
         "fstatat: dirfd: {:?}, path: {:?}, flags: {:?}",
         dirfd, path, flags
     );

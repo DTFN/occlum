@@ -1,7 +1,7 @@
 use super::*;
 
 pub fn do_link(oldpath: &str, newpath: &str) -> Result<()> {
-    debug!("link: oldpath: {:?}, newpath: {:?}", oldpath, newpath);
+    println!("link: oldpath: {:?}, newpath: {:?}", oldpath, newpath);
 
     let (new_dir_path, new_file_name) = split_path(&newpath);
     let (inode, new_dir_inode) = {

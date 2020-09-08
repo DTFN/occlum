@@ -21,7 +21,7 @@ pub use crate::util::sync::RwLock;
 
 macro_rules! debug_trace {
     () => {
-        debug!("> Line = {}, File = {}", line!(), file!())
+        println!("> Line = {}, File = {}", line!(), file!())
     };
 }
 

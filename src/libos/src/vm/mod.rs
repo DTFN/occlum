@@ -28,12 +28,12 @@ pub fn do_mmap(
     offset: usize,
 ) -> Result<usize> {
     if flags.contains(MMapFlags::MAP_ANONYMOUS) {
-        debug!(
+        println!(
             "mmap: addr: {:#x}, size: {:#x}, perms: {:?}, flags: {:?}",
             addr, size, perms, flags,
         );
     } else {
-        debug!(
+        println!(
             "mmap: addr: {:#x}, size: {:#x}, perms: {:?}, flags: {:?}, fd: {:?}, offset: {:?}",
             addr, size, perms, flags, fd, offset
         );
@@ -43,7 +43,7 @@ pub fn do_mmap(
 }
 
 pub fn do_munmap(addr: usize, size: usize) -> Result<()> {
-    debug!("munmap: addr: {:#x}, size: {:#x}", addr, size);
+    println!("munmap: addr: {:#x}, size: {:#x}", addr, size);
     let current = current!();
     current!().vm().munmap(addr, size)
 }
@@ -54,7 +54,7 @@ pub fn do_mremap(
     new_size: usize,
     flags: MRemapFlags,
 ) -> Result<usize> {
-    debug!(
+    println!(
         "mremap: old_addr: {:#x}, old_size: {:#x}, new_size: {:#x}, flags: {:?}",
         old_addr, old_size, new_size, flags
     );
@@ -62,7 +62,7 @@ pub fn do_mremap(
 }
 
 pub fn do_mprotect(addr: usize, size: usize, perms: VMPerms) -> Result<()> {
-    debug!(
+    println!(
         "mprotect: addr: {:#x}, size: {:#x}, perms: {:?}",
         addr, size, perms
     );
@@ -70,12 +70,12 @@ pub fn do_mprotect(addr: usize, size: usize, perms: VMPerms) -> Result<()> {
 }
 
 pub fn do_brk(addr: usize) -> Result<usize> {
-    debug!("brk: addr: {:#x}", addr);
+    println!("brk: addr: {:#x}", addr);
     current!().vm().brk(addr)
 }
 
 pub fn do_msync(addr: usize, size: usize, flags: MSyncFlags) -> Result<()> {
-    debug!(
+    println!(
         "msync: addr: {:#x}, size: {:#x}, flags: {:?}",
         addr, size, flags
     );

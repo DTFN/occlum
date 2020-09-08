@@ -11,7 +11,7 @@ use core::arch::x86_64::{_fxrstor, _fxsave};
 use std::{ptr, slice};
 
 pub fn do_rt_sigreturn(curr_user_ctxt: &mut CpuContext) -> Result<()> {
-    debug!("do_rt_sigreturn");
+    println!("do_rt_sigreturn");
     let last_ucontext = {
         let last_ucontext = PRE_UCONTEXTS.with(|ref_cell| {
             let mut stack = ref_cell.borrow_mut();
@@ -144,7 +144,7 @@ fn handle_signal(
     }
 
     let action = process.sig_dispositions().read().unwrap().get(signal.num());
-    debug!(
+    println!(
         "Handle signal: signal: {:?}, action: {:?}",
         &signal, &action
     );

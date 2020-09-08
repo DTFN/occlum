@@ -43,7 +43,7 @@ pub fn do_faccessat(
     mode: AccessibilityCheckMode,
     flags: AccessibilityCheckFlags,
 ) -> Result<()> {
-    debug!(
+    println!(
         "faccessat: dirfd: {:?}, path: {:?}, mode: {:?}, flags: {:?}",
         dirfd, path, mode, flags
     );

@@ -46,13 +46,13 @@ fn main() {
         .get_matches();
 
     let occlum_config_file_path = matches.value_of("input").unwrap();
-    debug!(
+    println!(
         "Occlum config (json) file name {:?}",
         occlum_config_file_path
     );
 
     let enclave_config_file_path = matches.value_of("output").unwrap();
-    debug!(
+    println!(
         "Enclave config (xml) file name {:?}",
         enclave_config_file_path
     );
@@ -62,7 +62,7 @@ fn main() {
         File::open(occlum_config_file_path).expect("The Occlum configuration file does not exist");
     let occlum_config: OcclumConfiguration = serde_json::from_reader(occlum_config_file)
         .expect("It is not a valid Occlum configuration file.");
-    debug!("The occlum config is:{:?}", occlum_config);
+    println!("The occlum config is:{:?}", occlum_config);
 
     // get the kernel stack size
     let stack_max_size = parse_memory_size(&occlum_config.resource_limits.kernel_space_stack_size);
@@ -115,7 +115,7 @@ fn main() {
 
     // Generate the enclave configuration
     let enclave_config = serde_xml_rs::to_string(&sgx_enclave_configuration).unwrap();
-    debug!("The enclave config:{:?}", enclave_config);
+    println!("The enclave config:{:?}", enclave_config);
 
     // Update the output file
     let mut enclave_config_file = File::create(enclave_config_file_path)

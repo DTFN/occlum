@@ -1,7 +1,7 @@
 use super::*;
 
 pub fn do_chown(path: &str, uid: u32, gid: u32) -> Result<()> {
-    debug!("chown: path: {:?}, uid: {}, gid: {}", path, uid, gid);
+    println!("chown: path: {:?}, uid: {}, gid: {}", path, uid, gid);
     let inode = {
         let current = current!();
         let fs = current.fs().lock().unwrap();
@@ -15,7 +15,7 @@ pub fn do_chown(path: &str, uid: u32, gid: u32) -> Result<()> {
 }
 
 pub fn do_fchown(fd: FileDesc, uid: u32, gid: u32) -> Result<()> {
-    debug!("fchown: fd: {}, uid: {}, gid: {}", fd, uid, gid);
+    println!("fchown: fd: {}, uid: {}, gid: {}", fd, uid, gid);
     let file_ref = current!().file(fd)?;
     let mut info = file_ref.metadata()?;
     info.uid = uid as usize;
@@ -25,7 +25,7 @@ pub fn do_fchown(fd: FileDesc, uid: u32, gid: u32) -> Result<()> {
 }
 
 pub fn do_lchown(path: &str, uid: u32, gid: u32) -> Result<()> {
-    debug!("lchown: path: {:?}, uid: {}, gid: {}", path, uid, gid);
+    println!("lchown: path: {:?}, uid: {}, gid: {}", path, uid, gid);
     let inode = {
         let current = current!();
         let fs = current.fs().lock().unwrap();

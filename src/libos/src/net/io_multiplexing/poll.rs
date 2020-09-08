@@ -96,7 +96,7 @@ pub fn do_poll(pollfds: &mut [PollEvent], timeout: *mut timeval_t) -> Result<usi
             || file_ref.as_dev_random().is_ok()
         {
             let events = file_ref.poll()?;
-            debug!("polled events are {:?}", events);
+            println!("polled events are {:?}", events);
             if pollfd.get_revents(events) {
                 libos_ready_num += 1;
             }
@@ -132,7 +132,7 @@ pub fn do_poll(pollfds: &mut [PollEvent], timeout: *mut timeval_t) -> Result<usi
         .unwrap()
         .get_host_fd();
 
-    debug!(
+    println!(
         "number of ready libos fd is {}; notifier_host_fd is {}",
         libos_ready_num, notifier_host_fd
     );
@@ -183,7 +183,7 @@ pub fn do_poll(pollfds: &mut [PollEvent], timeout: *mut timeval_t) -> Result<usi
     }
 
     assert!(ret == host_ready_num + notified);
-    debug!("pollfds returns {:?}", pollfds);
+    println!("pollfds returns {:?}", pollfds);
     Ok(host_ready_num + libos_ready_num)
 }
 

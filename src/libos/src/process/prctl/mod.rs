@@ -40,7 +40,7 @@ impl<'a> PrctlCmd<'a> {
                 PrctlCmd::PR_GET_NAME(buf_checked)
             }
             _ => {
-                debug!("prctl cmd num: {}", cmd);
+                println!("prctl cmd num: {}", cmd);
                 return_errno!(EINVAL, "unsupported prctl command");
             }
         })
@@ -48,7 +48,7 @@ impl<'a> PrctlCmd<'a> {
 }
 
 pub fn do_prctl(cmd: PrctlCmd) -> Result<isize> {
-    debug!("prctl: {:?}", cmd);
+    println!("prctl: {:?}", cmd);
 
     let current = current!();
     match cmd {

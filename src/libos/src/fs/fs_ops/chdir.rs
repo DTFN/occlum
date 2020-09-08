@@ -1,7 +1,7 @@
 use super::*;
 
 pub fn do_chdir(path: &str) -> Result<()> {
-    debug!("chdir: path: {:?}", path);
+    println!("chdir: path: {:?}", path);
 
     let current = current!();
     let mut fs = current.fs().lock().unwrap();

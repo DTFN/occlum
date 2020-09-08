@@ -1,7 +1,7 @@
 use super::*;
 
 pub fn do_readlink(path: &str, buf: &mut [u8]) -> Result<usize> {
-    debug!("readlink: path: {:?}", path);
+    println!("readlink: path: {:?}", path);
     let file_path = {
         if path == "/proc/self/exe" {
             current!().process().exec_path().to_owned()
@@ -56,7 +56,7 @@ fn do_symlink(target: &str, link_path: &str) -> Result<usize> {
 }
 
 pub fn do_symlinkat(target: &str, new_dirfd: DirFd, link_path: &str) -> Result<usize> {
-    debug!(
+    println!(
         "symlinkat: target: {:?}, new_dirfd: {:?}, link_path: {:?}",
         target, new_dirfd, link_path
     );

@@ -5,7 +5,7 @@ use sgx_types::*;
 pub const SYSCALL_OPCODE: u16 = 0x050F;
 
 pub fn handle_syscall_exception(user_context: &mut CpuContext) -> ! {
-    debug!("handle SYSCALL exception");
+    println!("handle SYSCALL exception");
 
     // SYSCALL instruction saves RIP into RCX and RFLAGS into R11. This is to
     // comply with hardware's behavoir. Not useful for us.

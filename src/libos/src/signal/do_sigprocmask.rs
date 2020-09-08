@@ -6,7 +6,7 @@ pub fn do_rt_sigprocmask(
     op_and_set: Option<(MaskOp, &sigset_t)>,
     oldset: Option<&mut sigset_t>,
 ) -> Result<()> {
-    debug!(
+    println!(
         "do_rt_sigprocmask: op_and_set: {:?}, oldset: {:?}",
         op_and_set.map(|(op, set)| (op, SigSet::from_c(*set))),
         oldset

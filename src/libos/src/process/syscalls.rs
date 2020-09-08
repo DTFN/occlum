@@ -22,7 +22,7 @@ pub fn do_spawn(
     let envp = clone_cstrings_safely(envp)?;
     let file_actions = clone_file_actions_safely(fdop_list)?;
     let current = current!();
-    debug!(
+    println!(
         "spawn: path: {:?}, argv: {:?}, envp: {:?}, fdop: {:?}",
         path, argv, envp, file_actions
     );
@@ -192,13 +192,13 @@ pub fn do_set_tid_address(tidptr: *mut pid_t) -> Result<isize> {
 }
 
 pub fn do_exit(status: i32) -> Result<isize> {
-    debug!("exit: {}", status);
+    println!("exit: {}", status);
     super::do_exit::do_exit(status);
     Ok(0)
 }
 
 pub fn do_exit_group(status: i32) -> Result<isize> {
-    debug!("exit_group: {}", status);
+    println!("exit_group: {}", status);
     super::do_exit::do_exit_group(status);
     Ok(0)
 }

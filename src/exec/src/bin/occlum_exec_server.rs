@@ -20,7 +20,7 @@ use std::sync::{Arc, Condvar, Mutex};
 //Checks the server status, if the server is running return true, else recover the socket file and return false.
 fn check_server_status(sock_file: &str) -> bool {
     if let Err(e) = std::fs::File::open(sock_file) {
-        debug!("failed to open the sock_file {:?}", e);
+        println!("failed to open the sock_file {:?}", e);
 
         if e.kind() == std::io::ErrorKind::NotFound {
             return false;
@@ -42,10 +42,10 @@ fn check_server_status(sock_file: &str) -> bool {
     );
 
     if let Ok(_) = resp {
-        debug!("another server is running.");
+        println!("another server is running.");
         true
     } else {
-        debug!("delete the useless socket file.");
+        println!("delete the useless socket file.");
         std::fs::remove_file(sock_file).expect("could not remove socket file");
         false
     }
@@ -77,7 +77,7 @@ fn main() {
     match server_builder.http.set_unix_addr(sockfile) {
         Ok(_) => {}
         Err(e) => {
-            debug!("{:?}", e);
+            println!("{:?}", e);
             return;
         }
     };
@@ -141,7 +141,7 @@ fn rust_occlum_pal_init() -> Result<(), i32> {
         log_level = val;
         log_level.push("\0");
     };
-    debug!("{:?} {:?}", instance_dir, log_level);
+    println!("{:?} {:?}", instance_dir, log_level);
 
     let occlum_pal_attribute = occlum_pal_attr_t {
         instance_dir: CStr::from_bytes_with_nul(instance_dir.as_bytes())

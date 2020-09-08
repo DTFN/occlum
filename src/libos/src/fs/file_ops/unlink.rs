@@ -1,7 +1,7 @@
 use super::*;
 
 pub fn do_unlink(path: &str) -> Result<()> {
-    debug!("unlink: path: {:?}", path);
+    println!("unlink: path: {:?}", path);
 
     let (dir_path, file_name) = split_path(&path);
     let dir_inode = {

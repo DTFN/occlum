@@ -131,7 +131,7 @@ impl FsView {
                 self.lookup_real_path(&new_path)
             }
             Err(FsError::EntryNotFound) | Ok(_) => {
-                debug!("real_path: cwd: {:?}, path: {:?}", self.cwd(), path);
+                println!("real_path: cwd: {:?}, path: {:?}", self.cwd(), path);
                 Ok(String::from(path))
             }
             Err(e) => return Err(Error::from(e)),
@@ -140,7 +140,7 @@ impl FsView {
 
     /// Lookup INode from the cwd of the process. If path is a symlink, do not dereference it
     pub fn lookup_inode_no_follow(&self, path: &str) -> Result<Arc<dyn INode>> {
-        debug!("lookup_inode: cwd: {:?}, path: {:?}", self.cwd(), path);
+        println!("lookup_inode: cwd: {:?}, path: {:?}", self.cwd(), path);
         let (dir_path, file_name) = split_path(&path);
         let dir_inode = self.lookup_inode(dir_path)?;
         Ok(dir_inode.lookup(file_name)?)
@@ -151,7 +151,7 @@ impl FsView {
         // Linux uses 40 as the upper limit for resolving symbolic links,
         // so Occlum use it as a reasonable value
         const MAX_SYMLINKS: usize = 40;
-        debug!(
+        println!(
             "lookup_inode_follow: cwd: {:?}, path: {:?}",
             self.cwd(),
             path
@@ -173,7 +173,7 @@ impl FsView {
 
     /// Convert the path to be absolute
     pub fn convert_to_abs_path(&self, path: &str) -> String {
-        debug!(
+        println!(
             "convert_to_abs_path: cwd: {:?}, path: {:?}",
             self.cwd(),
             path

@@ -7,7 +7,7 @@ pub fn select(
     exceptfds: &mut libc::fd_set,
     timeout: *mut timeval_t,
 ) -> Result<isize> {
-    debug!(
+    println!(
         "read: {} write: {} exception: {}",
         readfds.format(),
         writefds.format(),
@@ -66,7 +66,7 @@ pub fn select(
         assert!(time_left.as_duration() <= origin_timeout.as_duration());
     }
 
-    debug!("returned pollfds are {:?}", pollfds);
+    println!("returned pollfds are {:?}", pollfds);
     for pollfd in &pollfds {
         let (r_poll, w_poll, e_poll) = convert_to_readable_writable_exceptional(pollfd.revents());
         if r_poll {

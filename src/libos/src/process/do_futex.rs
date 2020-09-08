@@ -75,7 +75,7 @@ pub fn futex_wait(
     futex_val: i32,
     timeout: &Option<timespec_t>,
 ) -> Result<()> {
-    debug!(
+    println!(
         "futex_wait addr: {:#x}, val: {}, timeout: {:?}",
         futex_addr as usize, futex_val, timeout
     );
@@ -130,7 +130,7 @@ pub fn futex_wait(
 
 /// Do futex wake
 pub fn futex_wake(futex_addr: *const i32, max_count: usize) -> Result<usize> {
-    debug!(
+    println!(
         "futex_wake addr: {:#x}, max_count: {}",
         futex_addr as usize, max_count
     );

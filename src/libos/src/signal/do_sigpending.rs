@@ -2,7 +2,7 @@ use super::SigSet;
 use crate::prelude::*;
 
 pub fn do_sigpending() -> Result<SigSet> {
-    debug!("do_sigpending");
+    println!("do_sigpending");
 
     let thread = current!();
     let process = thread.process();

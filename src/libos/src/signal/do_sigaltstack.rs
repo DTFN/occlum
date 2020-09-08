@@ -3,7 +3,7 @@ use crate::prelude::*;
 use crate::syscall::CpuContext;
 
 pub fn do_sigaltstack(new_ss: &Option<SigStack>, curr_user_ctxt: &CpuContext) -> Result<SigStack> {
-    debug!("do_sigaltstack: new_ss:{:?}", new_ss);
+    println!("do_sigaltstack: new_ss:{:?}", new_ss);
     let thread = current!();
     let mut sig_stack = thread.sig_stack().lock().unwrap();
     let old_ss = if let Some(sig_stack) = *sig_stack {

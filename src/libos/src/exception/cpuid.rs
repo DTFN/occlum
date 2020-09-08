@@ -263,7 +263,7 @@ pub fn setup_cpuid_info() {
 }
 
 pub fn handle_cpuid_exception(user_context: &mut CpuContext) -> Result<isize> {
-    debug!("handle CPUID exception");
+    println!("handle CPUID exception");
     let leaf = user_context.rax as u32;
     let subleaf = user_context.rcx as u32;
     let cpuid_result = CPUID.get_cpuid_info(leaf, subleaf);

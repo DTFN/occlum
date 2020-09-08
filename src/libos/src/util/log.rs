@@ -4,7 +4,7 @@
 /// 1. `error!`
 /// 2. `warn!`
 /// 3. `info!`
-/// 4. `debug!`
+/// 4. `println!`
 /// 5. `trace!`
 /// which corresponds to five different log levels.
 ///
@@ -20,7 +20,7 @@
 /// 3. Use `info!` to show important events (from users' perspective) in normal execution,
 ///    e.g., creating/exiting a process/thread.
 ///
-/// 4. Use `debug!` to track major events in normal execution, e.g., the high-level
+/// 4. Use `println!` to track major events in normal execution, e.g., the high-level
 ///    arguments of a system call.
 ///
 /// 5. Use `trace` to record the most detailed info, e.g., when a system call enters

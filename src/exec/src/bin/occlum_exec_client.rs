@@ -51,7 +51,7 @@ fn exec_command(
     parameters: &[&str],
     envs: &[&str],
 ) -> Result<i32, String> {
-    debug!("exec_command {:?} {:?} {:?}", command, parameters, envs);
+    println!("exec_command {:?} {:?} {:?}", command, parameters, envs);
 
     let mut parameter_list = RepeatedField::default();
     for p in parameters {
@@ -73,13 +73,13 @@ fn exec_command(
         for stream in listener.incoming() {
             match stream {
                 Ok(stream) => {
-                    debug!("server connected");
+                    println!("server connected");
                     if let Ok(_) = stream.send_with_fd(&[0], &[0, 1, 2]) {
                         break;
                     }
                 }
                 Err(e) => {
-                    debug!("connection failed: {}", e);
+                    println!("connection failed: {}", e);
                 }
             }
         }
@@ -136,12 +136,12 @@ fn start_server(client: &OcclumExecClient, server_name: &str) -> Result<u32, Str
                 if resp.status == HealthCheckResponse_ServingStatus::NOT_SERVING {
                     return Err("server is not running. It is not able to start.".to_string());
                 }
-                debug!("server is running.");
+                println!("server is running.");
                 return Ok(0);
             }
             Err(_resp) => {
                 if !server_launched {
-                    debug!("server is not running, try to launch the server.");
+                    println!("server is not running, try to launch the server.");
                     match Command::new(server_name).stdout(Stdio::null()).spawn() {
                         Err(_r) => {
                             return Err("Failed to launch server".to_string());
@@ -177,9 +177,9 @@ fn stop_server(client: &OcclumExecClient, time: u32) {
             )
             .join_metadata_result(),
     ) {
-        debug!("The server is not running.");
+        println!("The server is not running.");
     } else {
-        debug!("The server has received the stop request.");
+        println!("The server has received the stop request.");
     }
 }
 
@@ -224,7 +224,7 @@ fn kill_process(client: &OcclumExecClient, process_id: &i32, signal: &i32) {
     )
     .is_err()
     {
-        debug!("send signal failed");
+        println!("send signal failed");
     }
 }
 
@@ -318,7 +318,7 @@ fn main() -> Result<(), i32> {
         let signals = Signals::new(&[SIGUSR1, SIGINT, SIGQUIT, SIGTERM]).unwrap();
         let signal_thread = thread::spawn(move || {
             for signal in signals.forever() {
-                debug!("Received signal {:?}", signal);
+                println!("Received signal {:?}", signal);
                 match signal {
                     SIGUSR1 => {
                         break;
@@ -351,13 +351,13 @@ fn main() -> Result<(), i32> {
                             return Err(result);
                         }
                     } else {
-                        debug!("get the return value failed");
+                        println!("get the return value failed");
                         return Err(-1);
                     }
                 }
             }
             Err(s) => {
-                debug!("execute command failed {}", s);
+                println!("execute command failed {}", s);
                 return Err(-1);
             }
         };

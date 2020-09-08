@@ -2,7 +2,7 @@ use super::*;
 
 pub fn do_mkdir(path: &str, mode: usize) -> Result<()> {
     // TODO: check pathname
-    debug!("mkdir: path: {:?}, mode: {:#o}", path, mode);
+    println!("mkdir: path: {:?}, mode: {:#o}", path, mode);
 
     let (dir_path, file_name) = split_path(&path);
     let inode = {

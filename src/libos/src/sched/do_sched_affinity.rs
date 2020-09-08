@@ -3,7 +3,7 @@ use crate::prelude::*;
 use crate::process::ThreadRef;
 
 pub fn do_sched_getaffinity(tid: pid_t) -> Result<CpuSet> {
-    debug!("do_sched_getaffinity tid: {}", tid);
+    println!("do_sched_getaffinity tid: {}", tid);
     let thread = get_thread_by_tid(tid)?;
     let sched = thread.sched().lock().unwrap();
     let affinity = sched.affinity().clone();
@@ -11,7 +11,7 @@ pub fn do_sched_getaffinity(tid: pid_t) -> Result<CpuSet> {
 }
 
 pub fn do_sched_setaffinity(tid: pid_t, new_affinity: CpuSet) -> Result<()> {
-    debug!(
+    println!(
         "do_sched_setaffinity tid: {}, new_affinity = {:?}",
         tid, &new_affinity
     );

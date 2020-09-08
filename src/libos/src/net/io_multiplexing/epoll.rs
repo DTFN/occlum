@@ -85,7 +85,7 @@ pub struct EpollFile {
 impl EpollFile {
     /// Creates a new Linux epoll file descriptor
     pub fn new(flags: CreationFlags) -> Result<Self> {
-        debug!("create epollfile: flags: {:?}", flags);
+        println!("create epollfile: flags: {:?}", flags);
         let host_fd = try_libc!(libc::ocall::epoll_create1(flags.bits() as i32));
         Ok(Self { host_fd })
     }

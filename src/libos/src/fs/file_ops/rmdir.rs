@@ -1,7 +1,7 @@
 use super::*;
 
 pub fn do_rmdir(path: &str) -> Result<()> {
-    debug!("rmdir: path: {:?}", path);
+    println!("rmdir: path: {:?}", path);
 
     let (dir_path, file_name) = split_path(&path);
     let dir_inode = {

@@ -193,7 +193,7 @@ unsafe impl Sync for PipeWriter {}
 pub fn do_pipe2(flags: u32) -> Result<[FileDesc; 2]> {
     let creation_flags = CreationFlags::from_bits_truncate(flags);
     let status_flags = StatusFlags::from_bits_truncate(flags);
-    debug!("pipe2: flags: {:?} {:?}", creation_flags, status_flags);
+    println!("pipe2: flags: {:?} {:?}", creation_flags, status_flags);
 
     let (pipe_reader, pipe_writer) = pipe(status_flags)?;
     let close_on_spawn = creation_flags.must_close_on_spawn();

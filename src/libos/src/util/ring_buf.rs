@@ -275,7 +275,7 @@ impl RingBufReader {
 
 impl Drop for RingBufReader {
     fn drop(&mut self) {
-        debug!("reader drop");
+        println!("reader drop");
         self.buffer.close_reader();
         if self.buffer.blocking_write() {
             self.before_drop();
@@ -419,7 +419,7 @@ impl RingBufWriter {
 
 impl Drop for RingBufWriter {
     fn drop(&mut self) {
-        debug!("writer drop");
+        println!("writer drop");
         self.buffer.close_writer();
         if self.buffer.blocking_read() {
             self.before_drop();

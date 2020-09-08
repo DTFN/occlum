@@ -3,7 +3,7 @@ use super::{SigAction, SigNum};
 use crate::prelude::*;
 
 pub fn do_rt_sigaction(signum: SigNum, new_sa: Option<SigAction>) -> Result<SigAction> {
-    debug!(
+    println!(
         "do_rt_sigaction: signum: {:?}, new_sa: {:?}",
         &signum, &new_sa
     );

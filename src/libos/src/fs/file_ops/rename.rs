@@ -1,7 +1,7 @@
 use super::*;
 
 pub fn do_rename(oldpath: &str, newpath: &str) -> Result<()> {
-    debug!("rename: oldpath: {:?}, newpath: {:?}", oldpath, newpath);
+    println!("rename: oldpath: {:?}, newpath: {:?}", oldpath, newpath);
 
     let current = current!();
     let fs = current.fs().lock().unwrap();

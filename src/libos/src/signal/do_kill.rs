@@ -5,7 +5,7 @@ use crate::prelude::*;
 use crate::process::{table, ProcessFilter, ProcessRef, ProcessStatus, ThreadRef, ThreadStatus};
 
 pub fn do_kill(filter: ProcessFilter, signum: SigNum) -> Result<()> {
-    debug!("do_kill: filter: {:?}, signum: {:?}", &filter, &signum);
+    println!("do_kill: filter: {:?}, signum: {:?}", &filter, &signum);
 
     let pid = current!().process().pid();
     let uid = 0;
@@ -71,7 +71,7 @@ fn get_processes(filter: &ProcessFilter) -> Result<Vec<ProcessRef>> {
 }
 
 pub fn do_tgkill(pid: Option<pid_t>, tid: pid_t, signum: SigNum) -> Result<()> {
-    debug!(
+    println!(
         "do_tgkill: pid: {:?}, tid: {:?}, signum: {:?}",
         &pid, &tid, &signum
     );

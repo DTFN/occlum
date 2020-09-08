@@ -15,7 +15,7 @@ pub enum IoEvent {
 }
 
 pub fn notify_thread(tid: pid_t) -> Result<()> {
-    debug!("notify thread {}", tid);
+    println!("notify thread {}", tid);
     assert_ne!(
         tid,
         current!().tid(),
@@ -35,7 +35,7 @@ pub fn notify_thread(tid: pid_t) -> Result<()> {
 pub fn clear_notifier_status(tid: pid_t) -> Result<()> {
     // One can only clear self for now
     assert_eq!(tid, current!().tid());
-    debug!("clear thread {} notifier", tid);
+    println!("clear thread {} notifier", tid);
     let mut data: &mut [u8] = &mut [0; 8];
 
     // Ignore the error for no data to read
