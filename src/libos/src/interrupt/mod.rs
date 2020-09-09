@@ -28,6 +28,8 @@ extern "C" fn handle_interrupt(info: *mut sgx_interrupt_info_t) -> i32 {
         ) -> u32;
     }
 
+    println!("===============handle interrupt============");
+
     let mut fpregs = FpRegs::save();
     unsafe {
         __occlum_syscall_c_abi(
