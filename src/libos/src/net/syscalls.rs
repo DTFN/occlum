@@ -672,7 +672,7 @@ pub fn do_epoll_pwait(
     if !sigmask.is_null() {
         warn!("epoll_pwait cannot handle signal mask, yet");
     } else {
-        info!("epoll_wait");
+        println!("epoll_wait");
     }
     do_epoll_wait(epfd, events, maxevents, timeout)
 }

@@ -178,7 +178,7 @@ impl OcclumExec for OcclumExecImpl {
                 stdio_fds.stderr_fd = fdlist[2];
             }
             Err(e) => {
-                info!("Failed to connect: {}", e);
+                println!("Failed to connect: {}", e);
                 return resp.finish(ExecCommResponse {
                     process_id: 0,
                     ..Default::default()

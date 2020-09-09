@@ -202,7 +202,7 @@ fn new_process(
     table::add_process(new_process_ref.clone());
     table::add_thread(new_process_ref.main_thread().unwrap());
 
-    info!(
+    println!(
         "Process created: elf = {}, pid = {}",
         elf_path,
         new_process_ref.pid()

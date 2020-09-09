@@ -18,7 +18,7 @@ pub fn do_eventfd(init_val: u32) -> Result<isize> {
 }
 
 pub fn do_eventfd2(init_val: u32, flags: i32) -> Result<isize> {
-    info!("eventfd: initval {}, flags {} ", init_val, flags);
+    println!("eventfd: initval {}, flags {} ", init_val, flags);
 
     let inner_flags =
         EventCreationFlags::from_bits(flags).ok_or_else(|| errno!(EINVAL, "invalid flags"))?;

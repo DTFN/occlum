@@ -67,7 +67,7 @@ pub fn do_clone(
     };
     let new_tid = new_thread_ref.tid();
     table::add_thread(new_thread_ref.clone());
-    info!("Thread created: tid = {}", new_tid);
+    println!("Thread created: tid = {}", new_tid);
 
     if flags.contains(CloneFlags::CLONE_PARENT_SETTID) {
         debug_assert!(ptid.is_some());

@@ -52,10 +52,10 @@ pub fn exec(libos_tid: pid_t, host_tid: pid_t) -> Result<i32> {
     let term_status = this_thread.inner().term_status().unwrap();
     match term_status {
         TermStatus::Exited(status) => {
-            info!("Thread exited: tid = {}, status = {}", libos_tid, status);
+            println!("Thread exited: tid = {}, status = {}", libos_tid, status);
         }
         TermStatus::Killed(signum) => {
-            info!("Thread killed: tid = {}, signum = {:?}", libos_tid, signum);
+            println!("Thread killed: tid = {}, signum = {:?}", libos_tid, signum);
         }
     }
 

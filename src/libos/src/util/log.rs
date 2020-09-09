@@ -3,7 +3,7 @@
 /// There are five APIs for producing log messages:
 /// 1. `error!`
 /// 2. `warn!`
-/// 3. `info!`
+/// 3. `println!`
 /// 4. `println!`
 /// 5. `trace!`
 /// which corresponds to five different log levels.
@@ -17,7 +17,7 @@
 /// 2. Use `warn!` to warn about potentially problematic issues, e.g., executing a workaround or
 ///    fake implementation.
 ///
-/// 3. Use `info!` to show important events (from users' perspective) in normal execution,
+/// 3. Use `println!` to show important events (from users' perspective) in normal execution,
 ///    e.g., creating/exiting a process/thread.
 ///
 /// 4. Use `println!` to track major events in normal execution, e.g., the high-level
